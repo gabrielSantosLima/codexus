@@ -25,9 +25,8 @@ export class UserService {
   rateBook(userName: string, bookId: string, rating: number): User | undefined {
     const foundUser = this.find(userName);
     if (!foundUser) return;
-
     const newRatings: BookRecommendation[] = [
-      ...foundUser.ratings,
+      ...foundUser.ratings.filter((r) => r.bookId !== bookId),
       { bookId, rating, userName },
     ];
 
@@ -47,8 +46,9 @@ export class UserService {
   }
 
   getAuthenticatedUser(): User | null | undefined {
-    const user = localStorage.getItem(LOCAL_USER) as User | null | undefined;
-    return user;
+    const user = localStorage.getItem(LOCAL_USER);
+    if (user === undefined || user === null) return undefined;
+    return this.fromJSON<User>(user);
   }
 
   logout() {
@@ -62,7 +62,7 @@ export class UserService {
 
   private find(userName: string): User | undefined {
     const users = this.fetchAll();
-    const foundUser = users.find((u) => u.name === userName);
+    const foundUser = users.find((u) => u.name.includes(userName));
     return foundUser;
   }
 
@@ -84,5 +84,18 @@ export class UserService {
 
     localStorage.setItem(LOCAL_USER, this.toJSON(user));
     return user;
+  }
+
+  // Deve retornar os IDs (bookId) dos livros recomendados
+  recommendBooks(): string[] {
+    const ids: string[] = []; // Lista de IDs
+    const users = this.fetchAll(); // Todos os usuários. Campo 'ratings' com as informações de avaliações
+    const authenticatedUser = this.getAuthenticatedUser(); // Usuário logado
+    if (!authenticatedUser) return [];
+
+    // Aplicação das métricas de similaridade
+    // code here
+    // =============
+    return ids;
   }
 }

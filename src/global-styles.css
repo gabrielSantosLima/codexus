@@ -1,4 +1,6 @@
-* {
+*,
+button,
+input {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -8,7 +10,7 @@
 html,
 #root,
 body {
-  min-width: 100vw;
+  min-width: 100%;
   min-height: 100vh;
 }
 
@@ -66,4 +68,16 @@ body {
   border: 1px solid white;
   background-color: black;
   color: white;
+}
+
+* ::-webkit-scrollbar {
+  background-color: #f0f0f0;
+  width: 8px;
+  height: 8px;
+}
+
+* ::-webkit-scrollbar-thumb {
+  /* border-radius: 8px; */
+  background: #929292;
+  border-radius: 8px;
 }
