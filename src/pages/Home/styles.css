@@ -1,0 +1,27 @@
+.home-page {
+  width: 100vw;
+  min-height: 100vh;
+}
+
+.home-page .main {
+  width: 100vw;
+  min-height: 100vh;
+  padding-top: 80px;
+  padding: 80px 16px 0px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.home-page .main .search {
+  width: 50%;
+  min-width: 300px;
+}
+
+.home-page .main .search img {
+  width: 100%;
+  min-width: 200px;
+  height: auto;
+}

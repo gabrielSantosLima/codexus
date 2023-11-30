@@ -6,15 +6,21 @@
   height: 80px;
   padding: 8px;
   display: flex;
-  justify-content: space-between;
+  gap: 8px;
 }
 
 .header-component img {
   width: auto;
   height: 100%;
+  cursor: pointer;
+}
+
+.header-component .toggle,
+.header-component .logout {
+  width: 100px;
+  height: 100%;
 }
 
 .header-component .toggle {
-  width: 100px;
-  height: 100%;
+  margin-left: auto;
 }

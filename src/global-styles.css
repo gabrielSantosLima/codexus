@@ -15,13 +15,11 @@ body {
 .theme.dark *.t-able {
   color: white;
   background-color: black;
-  transition: background-color 0.5s;
 }
 
 .theme.light *.t-able {
   color: black;
   background-color: white;
-  transition: background-color 0.5s;
 }
 
 .theme.light .primary,
