@@ -1,10 +1,10 @@
 import { Book } from "../entities/book";
 
 export class BookService {
-  async fetchAll() {
+  async fetchAll(): Promise<Book[]> {
     const data = await fetch("data/data.json");
     const json = await data.json();
-    return json;
+    return json as Book[];
   }
 
   async fetchByIds(idList: number[]) {

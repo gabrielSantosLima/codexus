@@ -11,7 +11,6 @@ export function useTheme() {
 
   function saveTheme(localTheme = theme) {
     localStorage.setItem("theme", localTheme);
-    console.log(getTheme());
   }
 
   function toggleTheme() {
