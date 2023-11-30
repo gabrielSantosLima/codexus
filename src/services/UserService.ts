@@ -1,8 +1,12 @@
 import { BookRecommendation } from "../entities/book_recommendation";
 import { User } from "../entities/user";
+import { BookService } from "./BookService";
+import { RecommendationService } from "./RecommendationService";
 
 const LOCAL_USER = "auth";
 const USERS = "users";
+
+const recommendation = new RecommendationService(new BookService());
 
 export class UserService {
   private fromJSON<T extends User | User[]>(data: string) {
@@ -22,7 +26,7 @@ export class UserService {
     return this.fromJSON<User[]>(data);
   }
 
-  rateBook(userName: string, bookId: string, rating: number): User | undefined {
+  rateBook(userName: string, bookId: number, rating: number): User | undefined {
     const foundUser = this.find(userName);
     if (!foundUser) return;
     const newRatings: BookRecommendation[] = [
@@ -87,15 +91,12 @@ export class UserService {
   }
 
   // Deve retornar os IDs (bookId) dos livros recomendados
-  recommendBooks(): string[] {
-    const ids: string[] = []; // Lista de IDs
+  recommendBooks(): number[] {
     const users = this.fetchAll(); // Todos os usuários. Campo 'ratings' com as informações de avaliações
     const authenticatedUser = this.getAuthenticatedUser(); // Usuário logado
     if (!authenticatedUser) return [];
 
-    // Aplicação das métricas de similaridade
-    // code here
-    // =============
+    const ids = recommendation.generateRecommendation(authenticatedUser, users);
     return ids;
   }
 }

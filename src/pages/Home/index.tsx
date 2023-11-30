@@ -16,7 +16,6 @@ import "./styles.css";
 
 const bookService = new BookService();
 const userService = new UserService();
-
 export const Home: React.FC = () => {
   const [books, setBooks] = useState<Book[] | undefined>(undefined);
   const [books2Show, setBooks2Show] = useState<Book[] | undefined>(undefined);
@@ -62,7 +61,8 @@ export const Home: React.FC = () => {
   }, [recommendationBooks]);
 
   function renderBook(book: Book, id: number) {
-    const size = book.book.length > 60 ? "s" : "n";
+    const bookName = book.book || '';
+    const size = bookName.length > 60 ? "s" : "n";
 
     return (
       <li key={id} className={`book ${size}`}>
@@ -76,7 +76,8 @@ export const Home: React.FC = () => {
   }
 
   function renderBookWithRating(book: Book, id: number) {
-    const size = book.book.length > 60 ? "s" : "n";
+    const bookName = book.book || '';
+    const size = bookName.length > 60 ? "s" : "n";
 
     return (
       <li

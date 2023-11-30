@@ -1,4 +1,3 @@
-import { Book } from "../entities/book";
 import { BookRecommendation } from "../entities/book_recommendation";
 import { User } from "../entities/user";
 import { BookService } from "./BookService";
@@ -30,7 +29,6 @@ export class RecommendationService {
     const dotProduct =
       this.productOfVectors(ratings1, ratings2) /
       (this.vectorLength(ratings1) * this.vectorLength(ratings2));
-    console.log(dotProduct);
     return dotProduct;
   }
 
@@ -40,13 +38,12 @@ export class RecommendationService {
     );
   }
 
-
-  async generateRecommendation(target: User, users: User[]) {
+  generateRecommendation(target: User, users: User[]) {
     const similarities: Record<string, number> = {};
     const notRatedBooks: number[] = [];
 
     for (const otherUser of users) {
-      if (otherUser !== target) {
+      if (otherUser.name !== target.name) {
         similarities[otherUser.name] = this.calculateCosineSimilarity(
           target,
           otherUser
@@ -57,9 +54,8 @@ export class RecommendationService {
     let usersInOrder = Object.keys(similarities).sort(
       (a, b) => similarities[b] - similarities[a]
     );
-
+    
     usersInOrder = usersInOrder.length > 3 ? usersInOrder.slice(0, 2) : usersInOrder;
-
     for (const userName of usersInOrder.slice(0, 3)) {
       const user = users.find((u) => u.name === userName);
       if (user) {
@@ -71,8 +67,6 @@ export class RecommendationService {
           );
       }
   } 
-    // TODO add book fetch
-    const books: Book[] = await this.bookService.fetchByIds(notRatedBooks);
-    return books;
+    return notRatedBooks;
   }
 }
