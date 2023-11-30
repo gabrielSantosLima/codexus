@@ -58,10 +58,10 @@ export const Home: React.FC = () => {
     }
 
     fetch();
-  }, [recommendationBooks]);
+  }, []);
 
   function renderBook(book: Book, id: number) {
-    const bookName = book.book || '';
+    const bookName = book.book || "";
     const size = bookName.length > 60 ? "s" : "n";
 
     return (
@@ -76,7 +76,7 @@ export const Home: React.FC = () => {
   }
 
   function renderBookWithRating(book: Book, id: number) {
-    const bookName = book.book || '';
+    const bookName = book.book || "";
     const size = bookName.length > 60 ? "s" : "n";
 
     return (
@@ -98,7 +98,7 @@ export const Home: React.FC = () => {
     if (books === undefined) return;
     const { value: text } = event.target;
     const filteredBooks = books.filter((b) =>
-      b.book.toLowerCase().includes(text)
+      b.book.toLowerCase().includes(text.toLowerCase())
     );
     setSearchFor(text);
     setBooks2Show(filteredBooks);
